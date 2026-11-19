@@ -9,3 +9,5 @@ coverage/
 data/
 .gmp_cache/
 .vercel/
+bun.lock
+bun.lockb
