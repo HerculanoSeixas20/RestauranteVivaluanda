@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-charcoal: #171916;
+  --color-champagne: #C4A46A;
+  --color-ivory: #F3EBDD;
+  --color-umber: #51483D;
+}
+
+@layer base {
+  html {
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #171916;
+    color: #171916;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: "Cormorant Garamond", Georgia, serif;
+  }
+}
+
+/* Futuristic luxury button interactive spotlight & light-sweep */
+.luxury-btn {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.luxury-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  background: radial-gradient(
+    140px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.28),
+    rgba(196, 164, 106, 0.14) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+}
+
+.luxury-btn:hover::before {
+  opacity: 1;
+}
+
+.luxury-btn-sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform: translateX(-115%) skewX(-20deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 100%
+  );
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.luxury-btn:hover .luxury-btn-sweep {
+  transform: translateX(115%) skewX(-20deg);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .luxury-btn-sweep {
+    display: none;
+  }
+}
