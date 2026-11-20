@@ -33,6 +33,9 @@ export default function App() {
   const [mapsApiKey, setMapsApiKey] = useState<string>(
     import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''
   );
+  const [mapsConfigLoaded, setMapsConfigLoaded] = useState<boolean>(
+    Boolean(import.meta.env.VITE_GOOGLE_MAPS_API_KEY)
+  );
   const [gmpQuotaExceeded, setGmpQuotaExceeded] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
   const [preselectedDishNote, setPreselectedDishNote] = useState<string | null>(null);
@@ -72,6 +75,9 @@ export default function App() {
         })
         .catch(() => {
           // Graceful fallback handled in LocationSection
+        })
+        .finally(() => {
+          setMapsConfigLoaded(true);
         });
     }
   }, [loadMenuData, mapsApiKey]);
@@ -119,7 +125,7 @@ export default function App() {
         <ExperienceSection />
         <ReviewsSection />
         <ReservationSection preselectedDishNote={preselectedDishNote} />
-        <LocationSection mapsApiKey={mapsApiKey} />
+        <LocationSection mapsApiKey={mapsApiKey} mapsConfigLoaded={mapsConfigLoaded} />
         <FinalCtaSection />
       </main>
 
